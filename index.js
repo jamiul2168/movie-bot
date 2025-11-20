@@ -13,10 +13,13 @@ const SHEET_ID = process.env.SHEET_ID;
 const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`;
 
 // Google API Auth
+const serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT);
+
 const auth = new google.auth.GoogleAuth({
-  keyFile: "service_account.json",
+  credentials: serviceAccount,
   scopes: ["https://www.googleapis.com/auth/spreadsheets"]
 });
+
 
 // Read all movies
 async function readMovies() {
@@ -114,3 +117,4 @@ app.post("/webhook", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("Bot Running on Port 3000"));
+
